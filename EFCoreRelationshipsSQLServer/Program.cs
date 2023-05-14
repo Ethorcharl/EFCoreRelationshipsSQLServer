@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//user and character it's 1:n relationship
+//character and weapon is 1:1 relation
+//character and skills is n:n relation
+
 // Add services to the container.
 
 //add db connection?

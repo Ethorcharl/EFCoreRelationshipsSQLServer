@@ -3,6 +3,7 @@ using EFCoreRelationshipsSQLServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreRelationshipsSQLServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230513235414_CharacterWeaponRelationship")]
+    partial class CharacterWeaponRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +23,6 @@ namespace EFCoreRelationshipsSQLServer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CharacterSkill", b =>
-                {
-                    b.Property<int>("CharactersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CharactersId", "SkillsId");
-
-                    b.HasIndex("SkillsId");
-
-                    b.ToTable("CharacterSkill");
-                });
 
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.Character", b =>
                 {
@@ -60,26 +48,6 @@ namespace EFCoreRelationshipsSQLServer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Characters");
-                });
-
-            modelBuilder.Entity("EFCoreRelationshipsSQLServer.Skill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Damage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.User", b =>
@@ -125,21 +93,6 @@ namespace EFCoreRelationshipsSQLServer.Migrations
                     b.ToTable("Weapons");
                 });
 
-            modelBuilder.Entity("CharacterSkill", b =>
-                {
-                    b.HasOne("EFCoreRelationshipsSQLServer.Character", null)
-                        .WithMany()
-                        .HasForeignKey("CharactersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EFCoreRelationshipsSQLServer.Skill", null)
-                        .WithMany()
-                        .HasForeignKey("SkillsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.Character", b =>
                 {
                     b.HasOne("EFCoreRelationshipsSQLServer.User", "User")
@@ -154,7 +107,7 @@ namespace EFCoreRelationshipsSQLServer.Migrations
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.Weapon", b =>
                 {
                     b.HasOne("EFCoreRelationshipsSQLServer.Character", "Character")
-                        .WithOne("Weapon")
+                        .WithOne("Weapong")
                         .HasForeignKey("EFCoreRelationshipsSQLServer.Weapon", "CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -164,7 +117,7 @@ namespace EFCoreRelationshipsSQLServer.Migrations
 
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.Character", b =>
                 {
-                    b.Navigation("Weapon");
+                    b.Navigation("Weapong");
                 });
 
             modelBuilder.Entity("EFCoreRelationshipsSQLServer.User", b =>
